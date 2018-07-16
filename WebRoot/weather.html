@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js">
+</script>
+<script>
+function btnOk_click(){
+    var city = $("#txtUsername").val();
+    $.ajax({
+        type: "get",
+        url: "http://v.juhe.cn/weather/index?cityname="+city+"&dtype=json&format=1&key=524f27c21fc4f85b659383878e95c140",
+	    dataType: "jsonp",
+        crossDomain: true,
+	    cache: false,
+        success: function(data, textStatus){
+          	//alert("数据: \n" + data + "\n状态: " + textStatus);
+          	var result = data.result;
+          	var sk = result.today;
+          	$("#result").text("城市:"+city+"  温度："+data["result"]["today"]["temperature"]+"   天气："+sk.weather);
+         },
+        error: function(){
+            alert("参数出错，请与管理员联系!");
+        }           
+    });
+}
+/*
+http://v.juhe.cn/weather/index
+请求参数：cityname=%E6%B9%98%E6%BD%AD&dtype=json&format=1&key=524f27c21fc4f85b659383878e95c140
+请求方式：GET
+
+*/
+</script>
+<style>
+   #pre1{
+   background-color:gray;
+   }
+</style>
+</head>
+<body id="pre1">
+<center>
+<h3>天气</h3>
+<pre>
+city : <input type="text" name="firstname" id="txtUsername"><br>
+<button type="button" onclick="btnOk_click()">提交</button>
+</pre>
+<div id="result"></div>
+</center>
+
+</body>
+</html>

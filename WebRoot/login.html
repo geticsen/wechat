@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js">
+</script>
+<script>
+    $(document).ready(function(){
+         $("#btn1").click(function(){
+               $.post("/web/DBTest",
+            	    {   
+            	        type:"1003",
+            	        userid:$("#sid").val(),
+            	        password:$("#spss").val()
+            	    },
+            	      function(data,status){ 
+            	       data=JSON.parse(data);
+            	       if(data["code"]=="ok"){
+            	           alert("注册成功");
+            	           window.location.href="qa.html?id="+$("#sid").val(); 
+            	       }else{
+            	          alert("失败");
+            	       }
+                });
+         });
+         $("#btn2").click(function(){
+               $.post("/web/DBTest",
+            	    {
+            	        type:"1002",
+            	        userid:$("#sid").val(),
+            	        password:$("#spss").val()
+            	    },
+            	     function(data,status){ 
+                       data=JSON.parse(data);
+            	       if(data["code"]=="ok"){
+            	           window.location.href="qa.html?id="+$("#sid").val(); 
+            	       }else{
+            	          alert("失败");
+            	       }
+            	       
+                });
+         });
+    });
+    
+</script>
+<style>
+h2{
+margin:0;
+}
+
+</style>
+</head>
+
+<body>
+  <div id='cont'>
+    <center>
+    <pre>
+    <h2 id="test1">请先登陆或者注册</h2>
+        <h2>用户名称: <input type="text" id="sid"></h2>
+        <h2>用户密码: <input type="text" id="spss"></h2>
+    <h2><button id="btn1">注册</button>   <button id="btn2">登录</button></h2>
+    </pre>
+    </center>
+  </div>
+</body>
+</html>
